@@ -1,0 +1,10 @@
+database:
+  superIndo:
+    host: ${SUPER_INDO_DB_HOST}
+    port: ${SUPER_INDO_DB_PORT}
+    username: ${SUPER_INDO_DB_USERNAME}
+    password: ${SUPER_INDO_DB_PASSWORD}
+    dbname: ${SUPER_INDO_DB_NAME}
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}

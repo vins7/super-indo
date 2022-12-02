@@ -1,0 +1,3 @@
+server:
+  port: ${SUPER_INDO_PORT}
+  secret: ${SUPER_INDO_SECRET}
