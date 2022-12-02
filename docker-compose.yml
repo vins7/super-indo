@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  mysql-services:
+    container_name: mysql-services
+    image: miyantara/mysql:latest
+    ports:
+      - 3306:3306
+    networks:
+      - app1_network
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./app/db:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+  redis-services:
+    container_name: redis-service
+    image: miyantara/redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - app1_network
+    restart: unless-stopped
+  super-indo-service:
+    container_name: super-indo-services
+    image: miyantara/super-indo-service
+    ports:
+      - 8080:8080
+    networks:
+      - app1_network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 40M
+        reservations:
+          cpus: '0.1'
+          memory: 20M
+    depends_on:
+      - mysql-services
+    environment:
+      - SUPER_INDO_DB_HOST=localhost
+      - SUPER_INDO_DB_PORT=3306
+      - SUPER_INDO_DB_USERNAME=root
+      - SUPER_INDO_DB_PASSWORD=root
+      - SUPER_INDO_DB_NAME=super_indo
+
+      - REDIS_HOST=localhost
+      - REDIS_PORT=6379
+
+      - SUPER_INDO_PORT=8080
+      - SUPER_INDO_SECRET=super_indo
+    restart: unless-stopped
+
+
+networks:
+  app1_network:
+    name: app1_network
+  
