@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   mysql-services:
-    container_name: mysql-services
+    container_name: super-indo-mysql
     image: miyantara/mysql:latest
     ports:
       - 3306:3306
@@ -14,7 +14,7 @@ services:
       - ./app/db:/docker-entrypoint-initdb.d
     restart: unless-stopped
   redis-services:
-    container_name: redis-service
+    container_name: super-indo-redis
     image: miyantara/redis:latest
     ports:
       - 6379:6379
@@ -39,13 +39,13 @@ services:
     depends_on:
       - mysql-services
     environment:
-      - SUPER_INDO_DB_HOST=localhost
+      - SUPER_INDO_DB_HOST=super-indo-mysql
       - SUPER_INDO_DB_PORT=3306
       - SUPER_INDO_DB_USERNAME=root
       - SUPER_INDO_DB_PASSWORD=root
       - SUPER_INDO_DB_NAME=super_indo
 
-      - REDIS_HOST=localhost
+      - REDIS_HOST=super-indo-redis
       - REDIS_PORT=6379
 
       - SUPER_INDO_PORT=8080

@@ -10,6 +10,10 @@ type User struct {
 	Email    string `gorm:"column:email;size:100" json:"email"`
 }
 
+func (User) TableName() string {
+	return "t_User"
+}
+
 type CreateUserRequest struct {
 	Id       string `json:"id"`
 	Username string `json:"username"`
